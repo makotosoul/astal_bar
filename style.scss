@@ -1,0 +1,19 @@
+$fg-color: #{"@theme_fg_color"};
+$bg-color: #{"@theme_bg_color"};
+
+window.Bar {
+  background: transparent;
+  color: $fg-color;
+  font-weight: bold;
+}
+
+window.Bar > centerbox {
+  background: $bg-color;
+  border-radius: 10px;
+  margin: 8px;
+}
+
+window.Bar button {
+  border-radius: 8px;
+  margin: 2px;
+}

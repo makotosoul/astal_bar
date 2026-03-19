@@ -1,0 +1,100 @@
+/* Palette format: $<name>-main, $<name>-outline-light, $<name>-outline-dark */
+
+/* Blue family */
+$iphone-blue-main: #3b82f6;
+$iphone-blue-outline-light: #93c5fd;
+$iphone-blue-outline-dark: #1e3a8a;
+
+$iphone-blue-titanium-main: #4f78a8;
+$iphone-blue-titanium-outline-light: #8fb6e3;
+$iphone-blue-titanium-outline-dark: #23364f;
+
+/* Pink family */
+$iphone-pink-main: #f472b6;
+$iphone-pink-outline-light: #f9a8d4;
+$iphone-pink-outline-dark: #9d174d;
+
+$iphone-rose-main: #e11d48;
+$iphone-rose-outline-light: #fb7185;
+$iphone-rose-outline-dark: #881337;
+
+/* Green family */
+$iphone-green-main: #22c55e;
+$iphone-green-outline-light: #86efac;
+$iphone-green-outline-dark: #14532d;
+
+$iphone-mint-main: #2dd4bf;
+$iphone-mint-outline-light: #99f6e4;
+$iphone-mint-outline-dark: #115e59;
+
+/* Yellow / Gold family */
+$iphone-yellow-main: #facc15;
+$iphone-yellow-outline-light: #fde68a;
+$iphone-yellow-outline-dark: #854d0e;
+
+$iphone-gold-main: #d4af37;
+$iphone-gold-outline-light: #f3d98b;
+$iphone-gold-outline-dark: #7a5a1d;
+
+/* Orange family */
+$iphone-orange-main: #fb923c;
+$iphone-orange-outline-light: #fdba74;
+$iphone-orange-outline-dark: #9a3412;
+
+/* Purple family */
+$iphone-purple-main: #a855f7;
+$iphone-purple-outline-light: #d8b4fe;
+$iphone-purple-outline-dark: #581c87;
+
+$iphone-deep-purple-main: #7c3aed;
+$iphone-deep-purple-outline-light: #c4b5fd;
+$iphone-deep-purple-outline-dark: #4c1d95;
+
+/* Black / White / Neutral family */
+$iphone-black-main: #0f172a;
+$iphone-black-outline-light: #334155;
+$iphone-black-outline-dark: #020617;
+
+$iphone-white-main: #f8fafc;
+$iphone-white-outline-light: #ffffff;
+$iphone-white-outline-dark: #94a3b8;
+
+$iphone-silver-main: #cbd5e1;
+$iphone-silver-outline-light: #e2e8f0;
+$iphone-silver-outline-dark: #64748b;
+
+$iphone-space-gray-main: #374151;
+$iphone-space-gray-outline-light: #6b7280;
+$iphone-space-gray-outline-dark: #111827;
+
+$iphone-natural-titanium-main: #b7b1a8;
+$iphone-natural-titanium-outline-light: #d6d2c9;
+$iphone-natural-titanium-outline-dark: #6b655d;
+
+/* iPhone 17-inspired tones */
+$iphone-sky-main: #5fa8ff;
+$iphone-sky-outline-light: #9ac8ff;
+$iphone-sky-outline-dark: #2f5f96;
+
+$iphone-lilac-main: #b08cff;
+$iphone-lilac-outline-light: #d7c2ff;
+$iphone-lilac-outline-dark: #5d4296;
+
+$iphone-aqua-main: #38d9c5;
+$iphone-aqua-outline-light: #89efe2;
+$iphone-aqua-outline-dark: #1f6f66;
+
+$iphone-sand-main: #d6b48a;
+$iphone-sand-outline-light: #ebd1b2;
+$iphone-sand-outline-dark: #7a5d3d;
+
+$iphone-graphite-main: #2f3640;
+$iphone-graphite-outline-light: #5b6575;
+$iphone-graphite-outline-dark: #14181f;
+
+/* Theme switch:
+ * set these 3 aliases to any palette above.
+ */
+$bar-main: $iphone-deep-purple-main;
+$bar-outline-light: $iphone-deep-purple-outline-light;
+$bar-outline-dark: $iphone-deep-purple-outline-dark;

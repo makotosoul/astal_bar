@@ -1,0 +1,393 @@
+@use './bar-palettes' as palette;
+@use 'sass:color';
+
+window.quickmenu {
+  background-color: transparent;
+  border: none;
+}
+
+/* Fullscreen backdrop: no margin so it covers entire screen and receives all outside clicks */
+window.quickmenu-backdrop-window {
+  background-color: transparent;
+  border: none;
+  margin: 0;
+}
+
+window.quickmenu-backdrop-window .quickmenu-backdrop {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  min-width: 1px;
+  min-height: 1px;
+  padding: 0;
+  margin: 0;
+}
+
+window.quickmenu-backdrop-window .quickmenu-backdrop:hover,
+window.quickmenu-backdrop-window .quickmenu-backdrop:active {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+
+window.quickmenu .quickmenu-shell {
+  background-color: palette.$bar-outline-dark;
+  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -20%);
+  border-left-color: transparent;
+  border-radius: 10px;
+  padding: 1px;
+  box-shadow: 6px 6px 0px 0px color.adjust(palette.$bar-outline-dark, $lightness: -20%);
+  margin: 0 6px 6px 0;
+  /* The magic bounce curve */
+  transition: margin 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  //faster bounce curve
+  /*transition: margin 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);*/
+}
+
+window.quickmenu .quickmenu-shell.open {
+  margin: 0 6px 6px 20px;
+}
+
+window.quickmenu .quickmenu-body {
+  background-color: palette.$bar-main;
+  border-radius: 8px;
+  min-width: 260px;
+  min-height: 260px;
+  padding: 10px;
+}
+
+/* Toggle tiles */
+
+window.quickmenu .qm-toggles {
+  margin-bottom: 4px;
+}
+
+window.quickmenu .qm-toggle {
+  border-radius: 8px;
+  padding: 6px 3px;
+  background-color: color.adjust(palette.$bar-main, $lightness: -4%);
+  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+
+  &:hover {
+    background-color: color.adjust(palette.$bar-main, $lightness: -7%);
+  }
+
+  &.active {
+    background-color: color.adjust(palette.$bar-outline-light, $lightness: -2%, $alpha: -0.2);
+    border-color: palette.$bar-outline-light;
+    box-shadow: 0 0 0 1px palette.$bar-outline-light;
+  }
+}
+
+window.quickmenu .qm-toggle-icon {
+  -gtk-icon-size: 16px;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+window.quickmenu .qm-toggle-label {
+  font-size: 9px;
+  font-weight: 600;
+}
+
+/* Split toggle (Bluetooth: icon toggles power, › opens panel) */
+
+window.quickmenu .qm-toggle-wrap {
+  border-radius: 8px;
+  background-color: color.adjust(palette.$bar-main, $lightness: -4%);
+  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
+  transition: background-color 150ms ease, box-shadow 150ms ease;
+
+  &.active {
+    background-color: color.adjust(palette.$bar-outline-light, $lightness: -2%, $alpha: -0.2);
+    border-color: palette.$bar-outline-light;
+    box-shadow: 0 0 0 1px palette.$bar-outline-light;
+  }
+}
+
+window.quickmenu .qm-toggle-main {
+  border-radius: 8px 0 0 8px;
+  padding: 6px 3px;
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+}
+
+window.quickmenu .qm-toggle-expand {
+  border-radius: 0 8px 8px 0;
+  min-width: 16px;
+  padding: 2px 3px;
+  background-color: transparent;
+  border: none;
+  border-left: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -10%);
+  font-size: 11px;
+  font-weight: 700;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  &.active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Divider */
+
+window.quickmenu .qm-divider {
+  background-color: color.adjust(palette.$bar-outline-dark, $lightness: -10%);
+  min-height: 1px;
+  margin: 8px 0;
+}
+
+/* Slider rows */
+
+window.quickmenu .qm-sliders {
+  margin-top: 4px;
+}
+
+window.quickmenu .qm-slider-row {
+  margin: 2px 0;
+}
+
+window.quickmenu .qm-slider-icon {
+  -gtk-icon-size: 16px;
+  min-width: 20px;
+  min-height: 20px;
+}
+
+window.quickmenu .qm-slider {
+  min-width: 120px;
+
+  trough {
+    border-radius: 4px;
+    min-height: 4px;
+    background-color: color.adjust(palette.$bar-outline-dark, $lightness: -7%);
+  }
+
+  highlight {
+    border-radius: 4px;
+    background-color: palette.$bar-outline-light;
+  }
+
+  slider {
+    min-width: 12px;
+    min-height: 12px;
+    border-radius: 50%;
+    background-color: color.adjust(palette.$bar-main, $lightness: 9%);
+    border: 2px solid palette.$bar-outline-light;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* Audio expand button */
+
+window.quickmenu .qm-audio-expand {
+  min-width: 22px;
+  min-height: 22px;
+  padding: 0 4px;
+  border-radius: 6px;
+  background-color: color.adjust(palette.$bar-main, $lightness: -4%);
+  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
+  font-size: 12px;
+  font-weight: 700;
+  transition: background-color 120ms ease;
+
+  &:hover {
+    background-color: color.adjust(palette.$bar-outline-light, $alpha: -0.4);
+  }
+
+  &.active {
+    background-color: color.adjust(palette.$bar-outline-light, $lightness: -2%, $alpha: -0.2);
+    border-color: palette.$bar-outline-light;
+  }
+}
+
+/* ── Device panel (shared BT / Audio window) ──────────────────────────── */
+
+window.device-panel {
+  background-color: transparent;
+  border: none;
+}
+
+window.device-panel .dp-shell {
+  background-color: palette.$bar-outline-dark;
+  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -20%);
+  border-radius: 10px;
+  padding: 1px;
+  box-shadow: 6px 6px 0px 0px color.adjust(palette.$bar-outline-dark, $lightness: -20%);
+  margin: 0 6px 6px 0;
+  /* The magic bounce curve */
+  transition: margin 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  /*transition: margin 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);*/
+}
+
+window.device-panel .dp-shell.open {
+  margin: 0 6px 6px 10px;
+}
+window.device-panel .dp-body {
+  background-color: palette.$bar-main;
+  border-radius: 8px;
+  min-width: 220px;
+  min-height: 260px;
+  padding: 10px;
+}
+
+window.device-panel .dp-header {
+  margin-bottom: 2px;
+}
+
+window.device-panel .dp-title {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+window.device-panel .dp-divider {
+  background-color: color.adjust(palette.$bar-outline-dark, $lightness: -10%);
+  min-height: 1px;
+  margin: 4px 0;
+}
+
+window.device-panel .dp-action {
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 8px;
+  padding: 4px;
+  background-color: color.adjust(palette.$bar-main, $lightness: -4%);
+  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
+  transition: background-color 150ms ease;
+
+  &:hover {
+    background-color: color.adjust(palette.$bar-main, $lightness: -7%);
+  }
+
+  &.active {
+    background-color: color.adjust(palette.$bar-outline-light, $lightness: -2%, $alpha: -0.2);
+    border-color: palette.$bar-outline-light;
+  }
+
+  image {
+    -gtk-icon-size: 14px;
+  }
+}
+
+window.device-panel .dp-scroll {
+  min-height: 0;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+window.device-panel .dp-items {
+  padding: 2px 0;
+}
+
+window.device-panel .dp-item {
+  border-radius: 7px;
+  padding: 2px;
+  transition: background-color 120ms ease;
+
+  &.active {
+    background-color: color.adjust(palette.$bar-outline-dark, $alpha: -0.3);
+  }
+}
+
+window.device-panel .dp-item-btn {
+  border-radius: 7px;
+  padding: 5px 8px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  transition: background-color 120ms ease;
+
+  &:hover {
+    background-color: color.adjust(palette.$bar-main, $lightness: -5%);
+  }
+}
+
+window.device-panel .dp-item-icon {
+  -gtk-icon-size: 14px;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+window.device-panel .dp-item-name {
+  font-size: 11px;
+}
+
+window.device-panel .dp-disconnect {
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 6px;
+  padding: 2px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  transition: background-color 120ms ease;
+
+  &:hover {
+    background-color: color.adjust(palette.$bar-main, $lightness: -8%);
+    border-color: color.adjust(palette.$bar-outline-dark, $lightness: -14%);
+  }
+
+  image {
+    -gtk-icon-size: 12px;
+  }
+}
+
+window.device-panel .dp-refresh {
+  border-radius: 8px;
+  padding: 5px 10px;
+  background-color: color.adjust(palette.$bar-main, $lightness: -4%);
+  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
+  font-size: 10px;
+  transition: background-color 120ms ease;
+
+  &:hover {
+    background-color: color.adjust(palette.$bar-outline-light, $alpha: -0.4);
+  }
+
+  &.scanning {
+    opacity: 0.6;
+  }
+
+  image {
+    -gtk-icon-size: 14px;
+  }
+}
+
+/* ── Bar app strip ─────────────────────────────────────────────────────── */
+
+window.bar .bar-apps {
+  margin-bottom: 4px;
+}
+
+window.bar .bar-app-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 4px;
+  margin: 1px 0;
+  border-radius: 8px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  transition: background-color 120ms ease, border-color 120ms ease;
+
+  &:hover {
+    background-color: color.adjust(palette.$bar-main, $lightness: -4%);
+    border-color: color.adjust(palette.$bar-outline-dark, $lightness: -10%);
+  }
+
+  &.focused {
+    background-color: color.adjust(palette.$bar-outline-light, $alpha: -0.4);
+    border-color: palette.$bar-outline-light;
+  }
+}
+
+window.bar .bar-app-icon {
+  -gtk-icon-size: 18px;
+  min-width: 18px;
+  min-height: 18px;
+}

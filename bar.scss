@@ -1,0 +1,202 @@
+@use './bar-palettes' as palette;
+@use 'sass:color';
+
+window.bar {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  margin: 7px 0 7px 7px;
+  min-width: 56px;
+  padding: 0;
+}
+
+window.bar .bar-body {
+  background-color: palette.$bar-outline-dark;
+  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -20%);
+  border-radius: 10px;
+  min-width: 40px;
+  padding: 1px;
+  box-shadow: 6px 6px 0px 0px color.adjust(palette.$bar-outline-dark, $lightness: -20%);
+  margin: 0 6px 6px 0;
+}
+
+window.bar .bar-body > box.inner-bar {
+  background-color: palette.$bar-main;
+  border-radius: 8px;
+  min-width: 36px;
+  min-height: 240px;
+  padding: 2px;
+}
+
+/* Bottom section */
+window.bar box.bar-spacer {
+  min-height: 0;
+  min-width: 0;
+}
+
+/* Workspace rectangle with 10 circles (vertical) */
+window.bar box.ws-rect {
+  margin: 4px 3px 2px 3px;
+  padding: 4px 3px;
+  border-radius: 999px;
+  /*border: 1px solid palette.$bar-outline-dark;*/
+  background-color: palette.$bar-outline-dark;
+}
+
+window.bar box.ws-rect box.ws-circles {
+  /* dots stacked vertically inside the rounded rectangle */
+}
+
+window.bar box.ws-rect box.ws-circles box.ws-dot {
+  background: transparent;
+  border-radius: 0;
+  min-width: 0;
+  min-height: 0;
+  margin: 4px 0; /* spacing between dots */
+}
+
+window.bar box.ws-rect box.ws-circles box.ws-dot box.ws-dot-inner {
+  background-color: color.adjust(palette.$bar-outline-dark, $lightness: 30%);
+  border-radius: 999px;
+  min-width: 15px;
+  min-height: 15px;
+  margin: 0;
+  transition: all 200ms ease-out;
+}
+
+window.bar box.ws-rect box.ws-circles box.ws-dot box.ws-dot-inner.ws-dot-inner-active {
+  background-color: palette.$bar-outline-light;
+  min-width: 16px;
+  min-height: 55px; /* vertical pill for current workspace */
+  border-radius: 999px;
+}
+
+window.bar box.bar-bottom {
+  padding: 4px 0;
+  min-width: 0;
+}
+
+/* Time: hour on top, minute on bottom */
+window.bar box.bar-time {
+  margin: 2px 0;
+}
+
+window.bar box.bar-time label.bar-time-hour,
+window.bar box.bar-time label.bar-time-minute {
+  color: palette.$bar-outline-light;
+  font-size: 18px;
+  font-weight: 800;
+  font-feature-settings: "tnum";
+  min-width: 0;
+}
+
+window.bar box.bar-time label.bar-time-hour {
+  padding: 0 2px;
+}
+
+window.bar box.bar-time label.bar-time-minute {
+  padding: 0 2px;
+  opacity: 1;
+}
+
+window.bar button.bar-status-group {
+  min-width: 28px;
+  padding: 4px 2px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+}
+
+window.bar button.bar-status-group:hover {
+  background-color: palette.$bar-outline-dark;
+}
+
+window.bar button.bar-status-group image.bar-status-icon {
+  -gtk-icon-size: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  margin: 5px 0;
+}
+
+window.bar image.wifi-enabled-icon {
+  color: #ffffff;
+}
+
+window.bar image.wifi-disabled-icon {
+  color: #9ca3af;
+}
+
+window.bar image.bluetooth-enabled-icon {
+  color: #ffffff;
+}
+
+window.bar image.bluetooth-disabled-icon {
+  color: #9ca3af;
+}
+
+window.bar image.sound-enabled-icon {
+  color: #ffffff;
+}
+
+window.bar image.sound-low-icon {
+  color: #9ca3af;
+}
+
+window.bar image.battery-icon {
+  color: #ffffff;
+}
+
+window.bar image.battery-low-icon {
+  color: #ef4444;
+}
+
+window.bar box.bar-tray-toggle-row {
+  margin-bottom: 2px;
+  min-width: 0;
+}
+
+window.bar button.bar-tray-toggle {
+  min-width: 28px;
+  min-height: 24px;
+  padding: 0 4px;
+  font-size: 12px;
+  font-weight: bold;
+  color: palette.$bar-outline-light;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+}
+
+window.bar button.bar-tray-toggle:hover {
+  background-color: palette.$bar-outline-dark;
+  color: palette.$bar-outline-light;
+}
+
+/* Expandable tray popup */
+window.bar box.bar-tray-popup {
+  margin-bottom: 4px;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid palette.$bar-outline-light;
+  background-color: palette.$bar-outline-dark;
+  min-width: 32px;
+}
+
+window.bar box.bar-tray-popup button.bar-tray-app-btn {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 2px;
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+}
+
+window.bar box.bar-tray-popup button.bar-tray-app-btn:hover {
+  background-color: palette.$bar-main;
+}
+
+window.bar box.bar-tray-popup button.bar-tray-app-btn image.bar-tray-app-icon {
+  -gtk-icon-size: 20px;
+  min-width: 20px;
+  min-height: 20px;
+}
