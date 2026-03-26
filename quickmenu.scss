@@ -1,9 +1,19 @@
 @use './bar-palettes' as palette;
 @use 'sass:color';
+@use "sass:math";
+
+// 1. Define your baseline
+$base-px: 16;
+
+// 2. Create the conversion function
+@function rem($pixels) {
+  @return math.div($pixels, $base-px) * 1rem;
+}
 
 window.quickmenu {
   background-color: transparent;
   border: none;
+  font-size: 16px; /* Lock baseline for scale */
 }
 
 /* Fullscreen backdrop: no margin so it covers entire screen and receives all outside clicks */
@@ -18,7 +28,7 @@ window.quickmenu-backdrop-window .quickmenu-backdrop {
   border: none;
   border-radius: 0;
   box-shadow: none;
-  min-width: 1px;
+  min-width: 1px; /* Left as px for the logic hack */
   min-height: 1px;
   padding: 0;
   margin: 0;
@@ -31,42 +41,39 @@ window.quickmenu-backdrop-window .quickmenu-backdrop:active {
   box-shadow: none;
 }
 
-
 window.quickmenu .quickmenu-shell {
   background-color: palette.$bar-outline-dark;
   border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -20%);
   border-left-color: transparent;
-  border-radius: 10px;
-  padding: 1px;
-  box-shadow: 6px 6px 0px 0px color.adjust(palette.$bar-outline-dark, $lightness: -20%);
-  margin: 0 6px 6px 0;
+  border-radius: rem(10);
+  padding: rem(1);
+  box-shadow: rem(6) rem(6) 0 0 color.adjust(palette.$bar-outline-dark, $lightness: -20%);
+  margin: 0 rem(6) rem(6) 0;
   /* The magic bounce curve */
   transition: margin 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  //faster bounce curve
-  /*transition: margin 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);*/
 }
 
 window.quickmenu .quickmenu-shell.open {
-  margin: 0 6px 6px 20px;
+  margin: 0 rem(6) rem(6) rem(20);
 }
 
 window.quickmenu .quickmenu-body {
   background-color: palette.$bar-main;
-  border-radius: 8px;
-  min-width: 260px;
-  min-height: 260px;
-  padding: 10px;
+  border-radius: rem(8);
+  min-width: rem(260);
+  min-height: rem(260);
+  padding: rem(10);
 }
 
 /* Toggle tiles */
 
 window.quickmenu .qm-toggles {
-  margin-bottom: 4px;
+  margin-bottom: rem(4);
 }
 
 window.quickmenu .qm-toggle {
-  border-radius: 8px;
-  padding: 6px 3px;
+  border-radius: rem(8);
+  padding: rem(6) rem(3);
   background-color: color.adjust(palette.$bar-main, $lightness: -4%);
   border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
   transition: background-color 150ms ease, box-shadow 150ms ease;
@@ -78,25 +85,25 @@ window.quickmenu .qm-toggle {
   &.active {
     background-color: color.adjust(palette.$bar-outline-light, $lightness: -2%, $alpha: -0.2);
     border-color: palette.$bar-outline-light;
-    box-shadow: 0 0 0 1px palette.$bar-outline-light;
+    box-shadow: 0 0 0 1px palette.$bar-outline-light; /* kept as 1px for crisp highlight */
   }
 }
 
 window.quickmenu .qm-toggle-icon {
-  -gtk-icon-size: 16px;
-  min-width: 16px;
-  min-height: 16px;
+  -gtk-icon-size: rem(16);
+  min-width: rem(16);
+  min-height: rem(16);
 }
 
 window.quickmenu .qm-toggle-label {
-  font-size: 9px;
+  font-size: rem(9);
   font-weight: 600;
 }
 
 /* Split toggle (Bluetooth: icon toggles power, › opens panel) */
 
 window.quickmenu .qm-toggle-wrap {
-  border-radius: 8px;
+  border-radius: rem(8);
   background-color: color.adjust(palette.$bar-main, $lightness: -4%);
   border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
   transition: background-color 150ms ease, box-shadow 150ms ease;
@@ -109,8 +116,8 @@ window.quickmenu .qm-toggle-wrap {
 }
 
 window.quickmenu .qm-toggle-main {
-  border-radius: 8px 0 0 8px;
-  padding: 6px 3px;
+  border-radius: rem(8) 0 0 rem(8);
+  padding: rem(6) rem(3);
   background-color: transparent;
   border: none;
 
@@ -120,13 +127,13 @@ window.quickmenu .qm-toggle-main {
 }
 
 window.quickmenu .qm-toggle-expand {
-  border-radius: 0 8px 8px 0;
-  min-width: 16px;
-  padding: 2px 3px;
+  border-radius: 0 rem(8) rem(8) 0;
+  min-width: rem(16);
+  padding: rem(2) rem(3);
   background-color: transparent;
   border: none;
   border-left: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -10%);
-  font-size: 11px;
+  font-size: rem(11);
   font-weight: 700;
 
   &:hover {
@@ -142,30 +149,31 @@ window.quickmenu .qm-toggle-expand {
 
 window.quickmenu .qm-divider {
   background-color: color.adjust(palette.$bar-outline-dark, $lightness: -10%);
-  min-height: 1px;
-  margin: 8px 0;
+  min-height: 1px; /* Keeps the hairline crisp */
+  margin: rem(8) 0;
 }
 
 /* Slider rows */
 
 window.quickmenu .qm-sliders {
-  margin-top: 4px;
+  margin-top: rem(4);
 }
 
 window.quickmenu .qm-slider-row {
-  margin: 2px 0;
+  margin: rem(2) 0;
 }
 
 window.quickmenu .qm-slider-icon {
-  -gtk-icon-size: 16px;
-  min-width: 20px;
-  min-height: 20px;
+  -gtk-icon-size: rem(16);
+  min-width: rem(20);
+  min-height: rem(20);
 }
 
 window.quickmenu .qm-slider {
-  min-width: 120px;
+  min-width: rem(120); /* Safe to scale the outer container! */
 
   trough {
+    /* Reverted to hardcoded pixels for GTK C-code happiness */
     border-radius: 4px;
     min-height: 4px;
     background-color: color.adjust(palette.$bar-outline-dark, $lightness: -7%);
@@ -177,25 +185,26 @@ window.quickmenu .qm-slider {
   }
 
   slider {
+    /* Reverted to hardcoded pixels */
     min-width: 12px;
     min-height: 12px;
     border-radius: 50%;
     background-color: color.adjust(palette.$bar-main, $lightness: 9%);
-    border: 2px solid palette.$bar-outline-light;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    border: 2px solid palette.$bar-outline-light; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Reverted shadow for crispness on the tiny knob */
   }
 }
 
 /* Audio expand button */
 
 window.quickmenu .qm-audio-expand {
-  min-width: 22px;
-  min-height: 22px;
-  padding: 0 4px;
-  border-radius: 6px;
+  min-width: rem(22);
+  min-height: rem(22);
+  padding: 0 rem(4);
+  border-radius: rem(6);
   background-color: color.adjust(palette.$bar-main, $lightness: -4%);
   border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
-  font-size: 12px;
+  font-size: rem(12);
   font-weight: 700;
   transition: background-color 120ms ease;
 
@@ -214,51 +223,55 @@ window.quickmenu .qm-audio-expand {
 window.device-panel {
   background-color: transparent;
   border: none;
+  font-size: 16px;
+}
+
+window.device-panel .dp-spacer {
+  margin-left: rem(306);
 }
 
 window.device-panel .dp-shell {
   background-color: palette.$bar-outline-dark;
   border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -20%);
-  border-radius: 10px;
-  padding: 1px;
-  box-shadow: 6px 6px 0px 0px color.adjust(palette.$bar-outline-dark, $lightness: -20%);
-  margin: 0 6px 6px 0;
-  /* The magic bounce curve */
+  border-radius: rem(10);
+  padding: rem(1);
+  box-shadow: rem(6) rem(6) 0 0 color.adjust(palette.$bar-outline-dark, $lightness: -20%);
+  margin: 0 rem(6) rem(6) 0;
   transition: margin 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  /*transition: margin 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);*/
 }
 
 window.device-panel .dp-shell.open {
-  margin: 0 6px 6px 10px;
+  margin: 0 rem(6) rem(6) rem(10);
 }
+
 window.device-panel .dp-body {
   background-color: palette.$bar-main;
-  border-radius: 8px;
-  min-width: 220px;
-  min-height: 260px;
-  padding: 10px;
+  border-radius: rem(8);
+  min-width: rem(220);
+  min-height: rem(260);
+  padding: rem(10);
 }
 
 window.device-panel .dp-header {
-  margin-bottom: 2px;
+  margin-bottom: rem(2);
 }
 
 window.device-panel .dp-title {
-  font-size: 12px;
+  font-size: rem(12);
   font-weight: 700;
 }
 
 window.device-panel .dp-divider {
   background-color: color.adjust(palette.$bar-outline-dark, $lightness: -10%);
   min-height: 1px;
-  margin: 4px 0;
+  margin: rem(4) 0;
 }
 
 window.device-panel .dp-action {
-  min-width: 28px;
-  min-height: 28px;
-  border-radius: 8px;
-  padding: 4px;
+  min-width: rem(28);
+  min-height: rem(28);
+  border-radius: rem(8);
+  padding: rem(4);
   background-color: color.adjust(palette.$bar-main, $lightness: -4%);
   border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
   transition: background-color 150ms ease;
@@ -273,23 +286,23 @@ window.device-panel .dp-action {
   }
 
   image {
-    -gtk-icon-size: 14px;
+    -gtk-icon-size: rem(14);
   }
 }
 
 window.device-panel .dp-scroll {
   min-height: 0;
-  border-radius: 8px;
+  border-radius: rem(8);
   background-color: transparent;
 }
 
 window.device-panel .dp-items {
-  padding: 2px 0;
+  padding: rem(2) 0;
 }
 
 window.device-panel .dp-item {
-  border-radius: 7px;
-  padding: 2px;
+  border-radius: rem(7);
+  padding: rem(2);
   transition: background-color 120ms ease;
 
   &.active {
@@ -298,8 +311,8 @@ window.device-panel .dp-item {
 }
 
 window.device-panel .dp-item-btn {
-  border-radius: 7px;
-  padding: 5px 8px;
+  border-radius: rem(7);
+  padding: rem(5) rem(8);
   background-color: transparent;
   border: 1px solid transparent;
   transition: background-color 120ms ease;
@@ -310,20 +323,20 @@ window.device-panel .dp-item-btn {
 }
 
 window.device-panel .dp-item-icon {
-  -gtk-icon-size: 14px;
-  min-width: 16px;
-  min-height: 16px;
+  -gtk-icon-size: rem(14);
+  min-width: rem(16);
+  min-height: rem(16);
 }
 
 window.device-panel .dp-item-name {
-  font-size: 11px;
+  font-size: rem(11);
 }
 
 window.device-panel .dp-disconnect {
-  min-width: 24px;
-  min-height: 24px;
-  border-radius: 6px;
-  padding: 2px;
+  min-width: rem(24);
+  min-height: rem(24);
+  border-radius: rem(6);
+  padding: rem(2);
   background-color: transparent;
   border: 1px solid transparent;
   transition: background-color 120ms ease;
@@ -334,16 +347,16 @@ window.device-panel .dp-disconnect {
   }
 
   image {
-    -gtk-icon-size: 12px;
+    -gtk-icon-size: rem(12);
   }
 }
 
 window.device-panel .dp-refresh {
-  border-radius: 8px;
-  padding: 5px 10px;
+  border-radius: rem(8);
+  padding: rem(5) rem(10);
   background-color: color.adjust(palette.$bar-main, $lightness: -4%);
   border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
-  font-size: 10px;
+  font-size: rem(10);
   transition: background-color 120ms ease;
 
   &:hover {
@@ -355,22 +368,22 @@ window.device-panel .dp-refresh {
   }
 
   image {
-    -gtk-icon-size: 14px;
+    -gtk-icon-size: rem(14);
   }
 }
 
 /* ── Bar app strip ─────────────────────────────────────────────────────── */
 
 window.bar .bar-apps {
-  margin-bottom: 4px;
+  margin-bottom: rem(4);
 }
 
 window.bar .bar-app-btn {
-  min-width: 28px;
-  min-height: 28px;
-  padding: 4px;
-  margin: 1px 0;
-  border-radius: 8px;
+  min-width: rem(28);
+  min-height: rem(28);
+  padding: rem(4);
+  margin: rem(1) 0;
+  border-radius: rem(8);
   background-color: transparent;
   border: 1px solid transparent;
   transition: background-color 120ms ease, border-color 120ms ease;
@@ -387,7 +400,7 @@ window.bar .bar-app-btn {
 }
 
 window.bar .bar-app-icon {
-  -gtk-icon-size: 18px;
-  min-width: 18px;
-  min-height: 18px;
+  -gtk-icon-size: rem(18);
+  min-width: rem(18);
+  min-height: rem(18);
 }

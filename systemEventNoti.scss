@@ -1,36 +1,46 @@
 @use './bar-palettes' as palette;
 @use 'sass:color';
+@use "sass:math";
+
+// 1. Define your baseline
+$base-px: 16;
+
+// 2. Create the conversion function
+@function rem($pixels) {
+  @return math.div($pixels, $base-px) * 1rem;
+}
 
 window.system-noti {
   background-color: transparent;
   border: none;
+  font-size: 16px; /* Lock baseline for scale */
 }
 
 window.system-noti .osd-pill {
   background-color: palette.$bar-main;
-  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%);
-  border-radius: 99px;
-  padding: 12px 20px;
-  min-width: 220px;
-  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.4);
+  border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -14%); /* Keep 1px for crispness */
+  border-radius: rem(99);
+  padding: rem(12) rem(20);
+  min-width: rem(220);
+  box-shadow: 0 rem(4) rem(14) rgba(0, 0, 0, 0.4);
 }
 
 window.system-noti .osd-icon {
-  -gtk-icon-size: 20px;
-  margin-right: 14px;
+  -gtk-icon-size: rem(20);
+  margin-right: rem(14);
 }
 
 /* Style the native GTK Level Bar */
 window.system-noti .osd-progress trough {
-  min-height: 6px;
-  border-radius: 4px;
+  min-height: rem(6);
+  border-radius: rem(4);
   background-color: color.adjust(palette.$bar-outline-dark, $lightness: -7%);
   padding: 0; /* Ensures the fill goes edge-to-edge */
 }
 
 window.system-noti .osd-progress block.filled {
-  min-height: 6px;
-  border-radius: 4px;
+  min-height: rem(6);
+  border-radius: rem(4);
   background-color: palette.$bar-outline-light;
   /* Smoothly glides the level bar when value changes */
   transition: min-width 150ms ease-out;

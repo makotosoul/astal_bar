@@ -349,6 +349,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
                 transition_type={Gtk.RevealerTransitionType.SLIDE_UP}
                 transition_duration={220}
                 reveal_child={trayOpen}
+                margin_bottom={4}
               >
                 <box class="bar-tray-popup" orientation={Gtk.Orientation.VERTICAL}>
                   {/* Spotify and Docker apps represented as tray apps, sourced from Hyprland appEntries. */}

@@ -1,3 +1,11 @@
+@use "sass:math";
+
+$base-px: 16;
+
+@function rem($pixels) {
+  @return math.div($pixels, $base-px) * 1rem;
+}
+
 $fg-color: #{"@theme_fg_color"};
 $bg-color: #{"@theme_bg_color"};
 
@@ -5,15 +13,17 @@ window.Bar {
   background: transparent;
   color: $fg-color;
   font-weight: bold;
+  /* Lock the base scale so rem() calculates perfectly */
+  font-size: 16px; 
 }
 
 window.Bar > centerbox {
   background: $bg-color;
-  border-radius: 10px;
-  margin: 8px;
+  border-radius: rem(10);
+  margin: rem(8);
 }
 
 window.Bar button {
-  border-radius: 8px;
-  margin: 2px;
+  border-radius: rem(8);
+  margin: rem(2);
 }

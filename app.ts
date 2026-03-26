@@ -1,4 +1,5 @@
 import app from "ags/gtk4/app"
+import GLib from "gi://GLib" // <-- Add this import so we can use the timeout!
 import style from "./style.scss"
 import barStyle from "./bar.scss"
 import quickmenuStyle from "./quickmenu.scss"
@@ -14,7 +15,7 @@ try {
   // libadwaita not available
 }
 
-// Strip @ rules that GTK 4 CSS parser doesn't support (e.g. @charset from compiled SCSS)
+// Strip @ rules that GTK 4 CSS parser doesn't support
 function stripUnsupportedAtRules(css: string): string {
   return css
     .replace(/^@charset\s+[^;]*;\s*$/gm, "")
@@ -23,7 +24,6 @@ function stripUnsupportedAtRules(css: string): string {
     .trim()
 }
 
-// 3. Add the new SCSS variable to your combined string
 const combinedCss = stripUnsupportedAtRules(
   `${style}\n${barStyle}\n${quickmenuStyle}\n${systemEventNotiStyle}`
 )
@@ -31,7 +31,38 @@ const combinedCss = stripUnsupportedAtRules(
 app.start({
   css: combinedCss,
   main() {
-    app.get_monitors().map(Bar)
-    app.get_monitors().map(systemEventNoti)
+    let hasInitialized = false
+
+    const setupUI = () => {
+      // If we already successfully drew the widgets, stop checking.
+      if (hasInitialized) return
+
+      const monitors = app.get_monitors()
+
+      if (monitors.length > 0) {
+        // Wayland finally announced the monitors! Lock it in.
+        hasInitialized = true
+        
+        // Grab the primary monitor (your laptop screen)
+        const primaryMonitor = monitors[0]
+        
+        try {
+          Bar(primaryMonitor)
+          systemEventNoti(primaryMonitor)
+        } catch (err) {
+          console.error("Failed to create UI:", err)
+        }
+      } else {
+        // Wayland is still calculating the mirror layout. 
+        // Wait 50ms and check again!
+        GLib.timeout_add(GLib.PRIORITY_DEFAULT, 50, () => {
+          setupUI()
+          return GLib.SOURCE_REMOVE // Tells GTK to stop this specific timeout tick
+        })
+      }
+    }
+
+    // Start the checking loop
+    setupUI()
   },
 })

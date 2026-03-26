@@ -198,10 +198,10 @@ export default function DevicePanel(
       keymode={Astal.Keymode.NONE}
       anchor={LEFT | BOTTOM}
       marginBottom={14}
-      marginLeft={304} // 314 - 10px (native margin-right)
+      marginLeft={-2} // 314 - 10px (native margin-right)
       application={app}
     >
-      <box orientation={Gtk.Orientation.HORIZONTAL} halign={Gtk.Align.START}>
+      <box class='dp-spacer' orientation={Gtk.Orientation.HORIZONTAL} halign={Gtk.Align.START}>
         <revealer
           transition_type={Gtk.RevealerTransitionType.SLIDE_RIGHT}
           transition_duration={400}

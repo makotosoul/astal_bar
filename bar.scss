@@ -1,31 +1,41 @@
 @use './bar-palettes' as palette;
 @use 'sass:color';
+@use "sass:math";
+
+// 1. Define your baseline (16px is standard)
+$base-px: 16;
+
+// 2. Create the conversion function
+@function rem($pixels) {
+  @return math.div($pixels, $base-px) * 1rem;
+}
 
 window.bar {
   background-color: transparent;
   border: none;
   border-radius: 0;
-  margin: 7px 0 7px 7px;
-  min-width: 56px;
+  margin: rem(7) 0 rem(7) rem(7);
+  min-width: rem(56);
   padding: 0;
+  font-size: 16px; /* Locks the base scale for the whole bar */
 }
 
 window.bar .bar-body {
   background-color: palette.$bar-outline-dark;
   border: 1px solid color.adjust(palette.$bar-outline-dark, $lightness: -20%);
-  border-radius: 10px;
-  min-width: 40px;
-  padding: 1px;
-  box-shadow: 6px 6px 0px 0px color.adjust(palette.$bar-outline-dark, $lightness: -20%);
-  margin: 0 6px 6px 0;
+  border-radius: rem(10);
+  min-width: rem(40);
+  padding: rem(1);
+  box-shadow: rem(6) rem(6) 0 0 color.adjust(palette.$bar-outline-dark, $lightness: -20%);
+  margin: 0 rem(6) rem(6) 0;
 }
 
 window.bar .bar-body > box.inner-bar {
   background-color: palette.$bar-main;
-  border-radius: 8px;
-  min-width: 36px;
-  min-height: 240px;
-  padding: 2px;
+  border-radius: rem(8);
+  min-width: rem(36);
+  min-height: rem(240);
+  padding: rem(2);
 }
 
 /* Bottom section */
@@ -36,9 +46,9 @@ window.bar box.bar-spacer {
 
 /* Workspace rectangle with 10 circles (vertical) */
 window.bar box.ws-rect {
-  margin: 4px 3px 2px 3px;
-  padding: 4px 3px;
-  border-radius: 999px;
+  margin: rem(4) rem(3) rem(2) rem(3);
+  padding: rem(4) rem(3);
+  border-radius: rem(999);
   /*border: 1px solid palette.$bar-outline-dark;*/
   background-color: palette.$bar-outline-dark;
 }
@@ -52,57 +62,57 @@ window.bar box.ws-rect box.ws-circles box.ws-dot {
   border-radius: 0;
   min-width: 0;
   min-height: 0;
-  margin: 4px 0; /* spacing between dots */
+  margin: rem(4) 0; /* spacing between dots */
 }
 
 window.bar box.ws-rect box.ws-circles box.ws-dot box.ws-dot-inner {
   background-color: color.adjust(palette.$bar-outline-dark, $lightness: 30%);
-  border-radius: 999px;
-  min-width: 15px;
-  min-height: 15px;
+  border-radius: rem(999);
+  min-width: rem(15);
+  min-height: rem(15);
   margin: 0;
   transition: all 200ms ease-out;
 }
 
 window.bar box.ws-rect box.ws-circles box.ws-dot box.ws-dot-inner.ws-dot-inner-active {
   background-color: palette.$bar-outline-light;
-  min-width: 16px;
-  min-height: 55px; /* vertical pill for current workspace */
-  border-radius: 999px;
+  min-width: rem(16);
+  min-height: rem(55); /* vertical pill for current workspace */
+  border-radius: rem(999);
 }
 
 window.bar box.bar-bottom {
-  padding: 4px 0;
+  padding: rem(4) 0;
   min-width: 0;
 }
 
 /* Time: hour on top, minute on bottom */
 window.bar box.bar-time {
-  margin: 2px 0;
+  margin: rem(2) 0;
 }
 
 window.bar box.bar-time label.bar-time-hour,
 window.bar box.bar-time label.bar-time-minute {
   color: palette.$bar-outline-light;
-  font-size: 18px;
+  font-size: rem(18);
   font-weight: 800;
   font-feature-settings: "tnum";
   min-width: 0;
 }
 
 window.bar box.bar-time label.bar-time-hour {
-  padding: 0 2px;
+  padding: 0 rem(2);
 }
 
 window.bar box.bar-time label.bar-time-minute {
-  padding: 0 2px;
+  padding: 0 rem(2);
   opacity: 1;
 }
 
 window.bar button.bar-status-group {
-  min-width: 28px;
-  padding: 4px 2px;
-  border-radius: 6px;
+  min-width: rem(28);
+  padding: rem(4) rem(2);
+  border-radius: rem(6);
   background: transparent;
   border: none;
 }
@@ -112,10 +122,10 @@ window.bar button.bar-status-group:hover {
 }
 
 window.bar button.bar-status-group image.bar-status-icon {
-  -gtk-icon-size: 18px;
-  min-width: 18px;
-  min-height: 18px;
-  margin: 5px 0;
+  -gtk-icon-size: rem(18);
+  min-width: rem(18);
+  min-height: rem(18);
+  margin: rem(5) 0;
 }
 
 window.bar image.wifi-enabled-icon {
@@ -151,20 +161,20 @@ window.bar image.battery-low-icon {
 }
 
 window.bar box.bar-tray-toggle-row {
-  margin-bottom: 2px;
+  margin-bottom: rem(2);
   min-width: 0;
 }
 
 window.bar button.bar-tray-toggle {
-  min-width: 28px;
-  min-height: 24px;
-  padding: 0 4px;
-  font-size: 12px;
+  min-width: rem(28);
+  min-height: rem(24);
+  padding: 0 rem(4);
+  font-size: rem(12);
   font-weight: bold;
   color: palette.$bar-outline-light;
   background: transparent;
   border: none;
-  border-radius: 6px;
+  border-radius: rem(6);
 }
 
 window.bar button.bar-tray-toggle:hover {
@@ -174,19 +184,19 @@ window.bar button.bar-tray-toggle:hover {
 
 /* Expandable tray popup */
 window.bar box.bar-tray-popup {
-  margin-bottom: 4px;
-  padding: 4px;
-  border-radius: 6px;
+  //margin-bottom: rem(4);
+  padding: rem(4);
+  border-radius: rem(6);
   border: 1px solid palette.$bar-outline-light;
   background-color: palette.$bar-outline-dark;
-  min-width: 32px;
+  min-width: rem(32);
 }
 
 window.bar box.bar-tray-popup button.bar-tray-app-btn {
-  min-width: 28px;
-  min-height: 28px;
-  padding: 2px;
-  border-radius: 4px;
+  min-width: rem(28);
+  min-height: rem(28);
+  padding: rem(2);
+  border-radius: rem(4);
   background: transparent;
   border: none;
 }
@@ -196,7 +206,7 @@ window.bar box.bar-tray-popup button.bar-tray-app-btn:hover {
 }
 
 window.bar box.bar-tray-popup button.bar-tray-app-btn image.bar-tray-app-icon {
-  -gtk-icon-size: 20px;
-  min-width: 20px;
-  min-height: 20px;
+  -gtk-icon-size: rem(20);
+  min-width: rem(20);
+  min-height: rem(20);
 }
